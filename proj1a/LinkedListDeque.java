@@ -4,10 +4,16 @@ public class LinkedListDeque<T> {
         private Node prev;
         private Node next;
 
-        private Node(T item, Node prev, Node next) {
-            this.item = item;
-            this.prev = prev;
-            this.next = next;
+        private Node(T it, Node p, Node n) {
+            item = it;
+            prev = p;
+            next = n;
+        }
+
+        private Node() {
+            item = null;
+            prev = null;
+            next = null;
         }
     }
 
@@ -15,15 +21,16 @@ public class LinkedListDeque<T> {
     private int size;
 
     public LinkedListDeque() {
-        sentinel = new Node(null, null, null);
+        sentinel = new Node();
         size = 0;
     }
 
     public void addFirst(T item) {
         /** no looping or recursion
          *  take constant time */
-        Node newNode = new Node(item, sentinel, sentinel.next);
-        sentinel.next.prev = newNode;
+        Node firstNode = sentinel.next;
+        Node newNode = new Node(item, sentinel, firstNode);
+        firstNode.prev = newNode;
         sentinel.next = newNode;
         size += 1;
     }
@@ -31,8 +38,9 @@ public class LinkedListDeque<T> {
     public void addLast(T item) {
         /** no looping or recursion
          *  take constant time */
-        Node newNode = new Node(item, sentinel.prev, sentinel);
-        sentinel.prev.next = newNode;
+        Node lastNode = sentinel.prev;
+        Node newNode = new Node(item, lastNode, sentinel);
+        lastNode.next = newNode;
         sentinel.prev = newNode;
         size += 1;
     }
@@ -64,13 +72,14 @@ public class LinkedListDeque<T> {
         if (size == 0) {
             return null;
         } else {
-            Node pointer = sentinel.next;
-            pointer.next.prev = sentinel;
-            sentinel.next = pointer.next;
-            pointer.prev = null;
-            pointer.next = null;
+            T res = sentinel.next.item;
+            Node firstNode = sentinel.next.next;
+            sentinel.next.next = null;
+            sentinel.next.prev = null;
+            sentinel.next = firstNode;
+            firstNode.prev = sentinel;
             size -= 1;
-            return pointer.item;
+            return res;
         }
     }
 
@@ -80,13 +89,14 @@ public class LinkedListDeque<T> {
         if (size == 0) {
             return null;
         } else {
-            Node pointer = sentinel.prev;
-            pointer.prev.next = sentinel;
-            sentinel.prev = pointer.prev;
-            pointer.prev = null;
-            pointer.next = null;
+            T res = sentinel.prev.item;
+            Node lastNode = sentinel.prev.prev;
+            sentinel.prev.prev = null;
+            sentinel.prev.next = null;
+            sentinel.prev = lastNode;
+            lastNode.next = sentinel;
             size -= 1;
-            return pointer.item;
+            return res;
         }
     }
 
@@ -107,11 +117,16 @@ public class LinkedListDeque<T> {
         /** use recursion */
         if (index >= size) {
             return null;
-        } else if (index == 0) {
-            return sentinel.next.item;
         } else {
-            removeFirst();
-            return getRecursive(index - 1);
+            return getHelper(sentinel.next, index);
+        }
+    }
+
+    private T getHelper(Node pointer, int index) {
+        if (index == 0) {
+            return pointer.item;
+        } else {
+            return getHelper(pointer.next, index - 1);
         }
     }
 }
