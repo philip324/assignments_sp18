@@ -15,31 +15,27 @@ public class ArrayDeque<T> {
     public void addFirst(T item) {
         /** no looping or recursion
          *  take constant time */
-        if (size+1 == items.length) {
-            resize(items.length*resizeFactor);
+        if (size + 1 == items.length) {
+            resize(items.length * resizeFactor);
         }
         items[center] = item;
-        center = (center-1)%items.length;
+        center = (center - 1) % items.length;
         size += 1;
     }
 
     public void addLast(T item) {
         /** no looping or recursion
          *  take constant time */
-        if (size+1 == items.length) {
-            resize(items.length*resizeFactor);
+        if (size + 1 == items.length) {
+            resize(items.length * resizeFactor);
         }
-        int index = (center+1+size)%items.length;
+        int index = (center + 1 + size) % items.length;
         items[index] = item;
         size += 1;
     }
 
     public boolean isEmpty() {
-        if (size == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return size == 0;
     }
 
     public int size() {
@@ -49,8 +45,8 @@ public class ArrayDeque<T> {
 
     public void printDeque() {
         if (size > 0) {
-            System.out.print(items[center+1]);
-            int index = center+2;
+            System.out.print(items[center + 1]);
+            int index = center + 2;
             int count = 1;
             while (count < size) {
                 System.out.print(" ");
@@ -64,11 +60,11 @@ public class ArrayDeque<T> {
     public T removeFirst() {
         /** no looping or recursion
          *  take constant time */
-        double ratio = (double) size/items.length;
+        double ratio = (double) size / items.length;
         if (ratio < usageRatio) {
-            resize(items.length/resizeFactor);
+            resize(items.length / resizeFactor);
         }
-        center = (center+1)%items.length;
+        center = (center + 1) % items.length;
         T res = items[center];
         items[center] = null;
         size -= 1;
@@ -78,11 +74,11 @@ public class ArrayDeque<T> {
     public T removeLast() {
         /** no looping or recursion
          *  take constant time */
-        double ratio = (double) size/items.length;
+        double ratio = (double) size / items.length;
         if (ratio < usageRatio) {
-            resize(items.length/resizeFactor);
+            resize(items.length / resizeFactor);
         }
-        int index = (center+size)%items.length;
+        int index = (center + size) % items.length;
         T res = items[index];
         items[index] = null;
         size -= 1;
@@ -94,16 +90,16 @@ public class ArrayDeque<T> {
         if (index >= size) {
             return null;
         } else {
-            return items[(center+1+index)%items.length];
+            return items[(center + 1 + index) % items.length];
         }
     }
 
     private void resize(int cap) {
         /** change items and center */
         T[] a = (T []) new Object[cap];
-        int copyLength = Math.min(size, items.length-center);
+        int copyLength = Math.min(size, items.length - center);
         System.arraycopy(items, center, a, 0, copyLength);
-        System.arraycopy(items, 0, a, copyLength, size-copyLength);
+        System.arraycopy(items, 0, a, copyLength, size - copyLength);
         center = 0;
         items = a;
     }

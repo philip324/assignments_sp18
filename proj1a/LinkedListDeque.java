@@ -1,8 +1,8 @@
 public class LinkedListDeque<T> {
     public class Node {
-        public T item;
-        public Node prev;
-        public Node next;
+        private T item;
+        private Node prev;
+        private Node next;
 
         public Node(T item, Node prev, Node next) {
             this.item = item;
@@ -38,11 +38,7 @@ public class LinkedListDeque<T> {
     }
 
     public boolean isEmpty() {
-        if (size == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return size == 0;
     }
 
     public int size() {
@@ -115,7 +111,7 @@ public class LinkedListDeque<T> {
             return sentinel.next.item;
         } else {
             removeFirst();
-            return getRecursive(index-1);
+            return getRecursive(index - 1);
         }
     }
 }
