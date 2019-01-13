@@ -15,8 +15,9 @@ public class ArrayDeque<T> {
     private static double usageRatio = 0.25;
 
     public void addFirst(T item) {
+        System.out.println(Math.floorMod(19, items.length));
         items[nextFirst] = item;
-        nextFirst = (nextFirst - 1) % items.length;
+        nextFirst = Math.floorMod(nextFirst - 1, items.length);
         size += 1;
         if (size + 1 == items.length) {
             resize(items.length * resizeFactor);
@@ -81,7 +82,7 @@ public class ArrayDeque<T> {
         if (isEmpty()) {
             return null;
         } else {
-            nextLast = (nextLast - 1) % items.length;
+            nextLast = Math.floorMod(nextLast - 1, items.length);
             T res = items[nextLast];
             items[nextLast] = null;
             size -= 1;
