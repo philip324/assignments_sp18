@@ -1,19 +1,19 @@
 public class LinkedListDeque<T> {
     private class Node {
-        private T item;
-        private Node prev;
-        private Node next;
+        public T item;
+        public Node prev;
+        public Node next;
 
-        private Node(T it, Node p, Node n) {
+        public Node(T it, Node p, Node n) {
             item = it;
             prev = p;
             next = n;
         }
 
-        private Node() {
+        public Node() {
             item = null;
-            prev = null;
-            next = null;
+            prev = this;
+            next = this;
         }
     }
 
