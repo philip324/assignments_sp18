@@ -64,8 +64,8 @@ public class ArrayDeque<T> {
             size -= 1;
             if (!isEmpty()) {
                 double ratio = (double) size / items.length;
-                if (ratio < usageRatio) {
-                    int newLength = Math.max(8, items.length / resizeFactor);
+                int newLength = Math.max(8, items.length / resizeFactor);
+                if (ratio < usageRatio && newLength < items.length) {
                     resize(newLength);
                 }
             } else {
@@ -87,8 +87,8 @@ public class ArrayDeque<T> {
             size -= 1;
             if (!isEmpty()) {
                 double ratio = (double) size / items.length;
-                if (ratio < usageRatio) {
-                    int newLength = Math.max(8, items.length / resizeFactor);
+                int newLength = Math.max(8, items.length / resizeFactor);
+                if (ratio < usageRatio && newLength < items.length) {
                     resize(newLength);
                 }
             } else {
@@ -115,11 +115,15 @@ public class ArrayDeque<T> {
             System.arraycopy(items, nextFirst + 1, a, 1, size);
         } else {
             int l1 = items.length - (nextFirst + 1);
-            System.arraycopy(items, (nextFirst + 1) % items.length, a, 1, l1);
-            System.arraycopy(items, 0, a, l1 + 1, size - l1);
+            if (l1 > 0) {
+                System.arraycopy(items, (nextFirst + 1) % items.length, a, 1, l1);
+            }
+            if (size - l1 > 0) {
+                System.arraycopy(items, 0, a, l1 + 1, size - l1);
+            }
         }
-        nextFirst = 0;
-        nextLast = nextFirst + size + 1;
         items = a;
+        nextFirst = 0;
+        nextLast = (nextFirst + size + 1) % items.length;
     }
 }
