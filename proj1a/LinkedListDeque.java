@@ -1,19 +1,13 @@
 public class LinkedListDeque<T> {
     private class Node {
-        public T item;
-        public Node prev;
-        public Node next;
+        private T item;
+        private Node prev;
+        private Node next;
 
-        public Node(T it, Node p, Node n) {
+        private Node(T it, Node p, Node n) {
             item = it;
             prev = p;
             next = n;
-        }
-
-        public Node() {
-            item = null;
-            prev = this;
-            next = this;
         }
     }
 
@@ -21,13 +15,11 @@ public class LinkedListDeque<T> {
     private int size;
 
     public LinkedListDeque() {
-        sentinel = new Node();
+        sentinel = new Node(null, sentinel, sentinel);
         size = 0;
     }
 
     public void addFirst(T item) {
-        /** no looping or recursion
-         *  take constant time */
         Node firstNode = sentinel.next;
         Node newNode = new Node(item, sentinel, firstNode);
         firstNode.prev = newNode;
@@ -36,8 +28,6 @@ public class LinkedListDeque<T> {
     }
 
     public void addLast(T item) {
-        /** no looping or recursion
-         *  take constant time */
         Node lastNode = sentinel.prev;
         Node newNode = new Node(item, lastNode, sentinel);
         lastNode.next = newNode;
@@ -50,7 +40,6 @@ public class LinkedListDeque<T> {
     }
 
     public int size() {
-        /** constant time */
         return size;
     }
 
@@ -67,8 +56,6 @@ public class LinkedListDeque<T> {
     }
 
     public T removeFirst() {
-        /** no looping or recursion
-         *  take constant time */
         if (size == 0) {
             return null;
         } else {
@@ -84,8 +71,6 @@ public class LinkedListDeque<T> {
     }
 
     public T removeLast() {
-        /** no looping or recursion
-         *  take constant time */
         if (size == 0) {
             return null;
         } else {
@@ -101,7 +86,6 @@ public class LinkedListDeque<T> {
     }
 
     public T get(int index) {
-        /** use iteration */
         if (index >= size) {
             return null;
         } else {
@@ -114,7 +98,6 @@ public class LinkedListDeque<T> {
     }
 
     public T getRecursive(int index) {
-        /** use recursion */
         if (index >= size) {
             return null;
         } else {

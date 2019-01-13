@@ -12,9 +12,9 @@ public class ArrayDeque<T> {
     private static int resizeFactor = 2;
     private static double usageRatio = 0.25;
 
+    /** no looping or recursion
+     *  take constant time */
     public void addFirst(T item) {
-        /** no looping or recursion
-         *  take constant time */
         if (size + 1 == items.length) {
             resize(items.length * resizeFactor);
         }
@@ -23,9 +23,9 @@ public class ArrayDeque<T> {
         size += 1;
     }
 
+    /** no looping or recursion
+     *  take constant time */
     public void addLast(T item) {
-        /** no looping or recursion
-         *  take constant time */
         if (size + 1 == items.length) {
             resize(items.length * resizeFactor);
         }
@@ -38,8 +38,8 @@ public class ArrayDeque<T> {
         return size == 0;
     }
 
+    /** constant time */
     public int size() {
-        /** constant time */
         return size;
     }
 
@@ -57,9 +57,9 @@ public class ArrayDeque<T> {
         }
     }
 
+    /** no looping or recursion
+     *  take constant time */
     public T removeFirst() {
-        /** no looping or recursion
-         *  take constant time */
         double ratio = (double) size / items.length;
         if (ratio < usageRatio) {
             resize(items.length / resizeFactor);
@@ -71,9 +71,9 @@ public class ArrayDeque<T> {
         return res;
     }
 
+    /** no looping or recursion
+     *  take constant time */
     public T removeLast() {
-        /** no looping or recursion
-         *  take constant time */
         double ratio = (double) size / items.length;
         if (ratio < usageRatio) {
             resize(items.length / resizeFactor);
@@ -85,8 +85,8 @@ public class ArrayDeque<T> {
         return res;
     }
 
+    /** use iteration */
     public T get(int index) {
-        /** use iteration */
         if (index >= size) {
             return null;
         } else {
@@ -94,8 +94,8 @@ public class ArrayDeque<T> {
         }
     }
 
+    /** change items and center */
     private void resize(int cap) {
-        /** change items and center */
         T[] a = (T []) new Object[cap];
         int copyLength = Math.min(size, items.length - center);
         System.arraycopy(items, center, a, 0, copyLength);
