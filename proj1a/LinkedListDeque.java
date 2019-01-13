@@ -9,13 +9,19 @@ public class LinkedListDeque<T> {
             prev = p;
             next = n;
         }
+
+        private Node() {
+            item = null;
+            prev = this;
+            next = this;
+        }
     }
 
     private Node sentinel;
     private int size;
 
     public LinkedListDeque() {
-        sentinel = new Node(null, sentinel, sentinel);
+        sentinel = new Node();
         size = 0;
     }
 
