@@ -15,21 +15,21 @@ public class ArrayDeque<T> {
     private static double usageRatio = 0.25;
 
     public void addFirst(T item) {
-        if (size + 1 == items.length) {
-            resize(items.length * resizeFactor);
-        }
         items[nextFirst] = item;
         nextFirst = (nextFirst - 1) % items.length;
         size += 1;
-    }
-
-    public void addLast(T item) {
         if (size + 1 == items.length) {
             resize(items.length * resizeFactor);
         }
+    }
+
+    public void addLast(T item) {
         items[nextLast] = item;
         nextLast = (nextLast + 1) % items.length;
         size += 1;
+        if (size + 1 == items.length) {
+            resize(items.length * resizeFactor);
+        }
     }
 
     public boolean isEmpty() {
