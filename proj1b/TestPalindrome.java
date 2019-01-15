@@ -17,12 +17,14 @@ public class TestPalindrome {
     }
 
     @Test
-    public void testIsPalindrome1() {
+    public void testIsPalindrome() {
         assertTrue(palindrome.isPalindrome("hannah"));
+        assertFalse(palindrome.isPalindrome("tiffany"));
     }
 
     @Test
-    public void testIsPalindrome2() {
-        assertFalse(palindrome.isPalindrome("tiffany"));
+    public void testCornerCases() {
+        assertFalse(palindrome.isPalindrome("Hannah"));
+        assertTrue(palindrome.isPalindrome(" "));
     }
 }

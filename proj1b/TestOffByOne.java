@@ -17,8 +17,14 @@ public class TestOffByOne {
     static Palindrome palindrome = new Palindrome();
 
     @Test
-    public void testIsPalindrome1() {
+    public void testIsPalindrome() {
         assertTrue(palindrome.isPalindrome("flake", offByOne));
+        assertFalse(palindrome.isPalindrome("hannah", offByOne));
+    }
+
+    @Test
+    public void testCornerCases() {
+        assertTrue(palindrome.isPalindrome("ab", offByOne));
         assertFalse(palindrome.isPalindrome("hannah", offByOne));
     }
 }
