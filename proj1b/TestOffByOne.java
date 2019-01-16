@@ -24,7 +24,7 @@ public class TestOffByOne {
 
     @Test
     public void testCornerCases() {
-        assertTrue(palindrome.isPalindrome("ab", offByOne));
-        assertFalse(palindrome.isPalindrome("hannah", offByOne));
+        assertTrue(palindrome.isPalindrome("%flake&", offByOne));
+        assertFalse(palindrome.isPalindrome("aB", offByOne));
     }
 }
