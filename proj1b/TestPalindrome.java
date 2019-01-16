@@ -25,8 +25,9 @@ public class TestPalindrome {
     @Test
     public void testCornerCases() {
         assertFalse(palindrome.isPalindrome("Hannah"));
-        assertTrue(palindrome.isPalindrome("bananab"));
-        assertFalse(palindrome.isPalindrome("baNanab"));
-        assertFalse(palindrome.isPalindrome("ba nanab"));
+        assertTrue(palindrome.isPalindrome("HanAnaH"));
+        assertFalse(palindrome.isPalindrome("a%a&a"));
+        assertTrue(palindrome.isPalindrome("^%%^"));
+        assertTrue(palindrome.isPalindrome("^%^"));
     }
 }
